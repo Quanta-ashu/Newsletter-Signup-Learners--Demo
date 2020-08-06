@@ -39,11 +39,11 @@ app.post("/", function (req, res) {
 
   const jsonData = JSON.stringify(data);
 
-  const url = "https://us17.api.mailchimp.com/3.0/lists/31bf204f22";
+  const url = "https://us17.api.mailchimp.com/3.0/lists/Audience_ID";
 
   const options = {
     method: "POST",
-    auth: "gangwarashutosh999:f06c8b13bfe7280ec621f51f556b5050-us17 ",
+    auth: "Username:APIKEY ",
   };
 
   // var rescode = 200;
@@ -81,9 +81,3 @@ app.listen(process.env.PORT || 3000, function () {
   console.log("Server started on Port 3000");
 });
 
-// api Key
-// 5891eb0903c7dfa24ae7d5eb4059609e-us17
-
-// ID
-// 31bf204f22
-//31bf204f22
