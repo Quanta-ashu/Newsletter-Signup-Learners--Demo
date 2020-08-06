@@ -17,95 +17,57 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/signUp.html");
 });
 
-app.post("/", function(req, res) {
-  const firstName = req.body.fName;
-  const lastName = req.body.lName;
+
+app.post("/", function (req, res) {
+  const fname = req.body.firstname;
+  const lname = req.body.lastname;
   const email = req.body.email;
 
   const data = {
-      members:[
-          {
-              email_address: email,
-              status: "subscribed",
-              merge_fields: {
-                  FNAME: firstName,
-                  LNAME: lastName,
-              }
-          }
-      ]
+    members: [
+      {
+        email_address: email,
+        status: "subscibed",
+
+        merge_fields: {
+          FNAME: fname,
+          LNAME: lname,
+        },
+      },
+    ],
   };
 
-  var jsonData = JSON.stringify(data);
+  const jsonData = JSON.stringify(data);
 
-  const url = "https://us17.api.mailchimp.com/3.0/lists/ad101"
+  const url = "https://us17.api.mailchimp.com/3.0/lists/31bf204f22";
 
   const options = {
-      method: "POST",
-      auth: "domin:d5f5ba5d1041916a5c08-us12"
-  }
+    method: "POST",
+    auth: "gangwarashutosh999:f06c8b13bfe7280ec621f51f556b5050-us17 ",
+  };
 
-  const request = https.request(url, options, function(response){
-      response.on("data", function(data){
-          console.log(JSON.parse(data));
-      })
-  })
+  // var rescode = 200;
+
+  const request = https.request(url, options, function (response) {
+    response.on("data", function (data) {
+      console.log(JSON.parse(data));
+      const rescode = response.statusCode ;
+
+       if(rescode === 200)
+       res.sendFile(__dirname + "/success.html");
+
+       else
+       res.sendFile(__dirname + "/failure.html");
+
+
+    });
+  });
 
   request.write(jsonData);
   request.end();
+
+  // if (rescode == 200) console.log("success");
 });
-
-
-
-// app.post("/", function (req, res) {
-//   const fname = req.body.firstname;
-//   const lname = req.body.lastname;
-//   const email = req.body.email;
-
-//   const data = {
-//     members: [
-//       {
-//         email_address: email,
-//         status: "subscibed",
-
-//         merge_fields: {
-//           FNAME: fname,
-//           LNAME: lname,
-//         },
-//       },
-//     ],
-//   };
-
-//   const jsonData = JSON.stringify(data);
-
-//   const url = "https://us17.api.mailchimp.com/3.0/lists/31bf204f22";
-
-//   const options = {
-//     method: "POST",
-//     auth: "gangwarashutosh999:f06c8b13bfe7280ec621f51f556b5050-us17 ",
-//   };
-
-//   // var rescode = 200;
-
-//   const request = https.request(url, options, function (response) {
-//     response.on("data", function (data) {
-//       console.log(JSON.parse(data));
-//       const rescode = response.statusCode ;
-
-//        if(rescode === 200)
-//        res.sendFile(__dirname + "/success.html");
-
-//        else
-//        res.sendFile(__dirname + "/failure.html");
-
-
-//     });
-//   });
-
-//   request.write(jsonData);
-//   request.end();
-
-//   // if (rescode == 200) console.log("success");
-// });
 
 app.post("/failure" , function(req,res)
 {
